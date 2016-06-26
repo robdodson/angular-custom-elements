@@ -2,6 +2,8 @@
 
 Polymer directive to hold all yr bindings together 😁
 
+*note*: This is still experimental so use at your own risk
+
 ## Install
 
 > bower install robdodson/angular-poly-grip
@@ -13,7 +15,7 @@ Polymer directive to hold all yr bindings together 😁
 3. Add the `poly-grip` directive to any Polymer element to keep its two-way
    bindings in sync.
 
-```
+```html
 <div ng-controller="MyCtrl">
   {{greeting}}
   <fancy-input message="{{greeting}}" poly-grip></fancy-input>
