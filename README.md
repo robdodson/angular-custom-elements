@@ -1,4 +1,4 @@
-# angular-poly-grip
+# ![angular-poly-grip](media/header.png)
 
 Polymer directive to hold all yr bindings together 😁
 
