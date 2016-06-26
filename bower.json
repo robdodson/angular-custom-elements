@@ -1,0 +1,23 @@
+{
+  "name": "angular-poly-grip",
+  "version": "1.0.0",
+  "authors": [
+    "Rob Dodson <robdodson@google.com>"
+  ],
+  "description": "Polymer directive to hold all yr bindings together",
+  "main": "poly-grip.js",
+  "keywords": [
+    "angular",
+    "directive",
+    "polymer"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

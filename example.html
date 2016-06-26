@@ -1,0 +1,27 @@
+<!doctype html>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+  <script src="poly-grip.js"></script>
+  <script src="https://polygit.org/components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link href="https://polygit.org/components/polymer/polymer.html" rel="import">
+  <link href="fancy-input.html" rel="import">
+  <meta charset="utf-8">
+</head>
+
+<body ng-app="myApp">
+
+  <div ng-controller="MyCtrl">
+    {{greeting}}
+    <fancy-input message="{{greeting}}" poly-grip></fancy-input>
+  </div>
+
+  <script>
+    var myApp = angular.module('myApp', ['robdodson.poly-grip']);
+
+    myApp.controller('MyCtrl', ['$scope', function($scope) {
+      $scope.greeting = 'Hola!';
+    }]);
+  </script>
+
+</body>
