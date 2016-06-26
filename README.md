@@ -50,3 +50,7 @@ elements but this becomes a bit of an arms race as every time an element creates
 a new attribute/property then `ng-polymer-elements` needs to be updated.
 It also relies on `Object.observe` which has been removed from the platform, so
 an additional polyfill is required.
+
+## Credits
+
+Logo image created by [Jems Mayor from the Noun Project](https://thenounproject.com/search/?q=dentures&i=425039).
