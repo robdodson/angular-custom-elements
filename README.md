@@ -29,7 +29,7 @@ changes it fires an event named: `[property]-changed`. For example, a two-way
 bindable property named `foo` would fire a `foo-changed` event.
 
 This means we can listen for the `*-changed` events coming off of an element,
-and take the new value and pass it into our app and call `$scope.$apply()`.
+and take the new value and pass it into our scope using `$evalAsync`.
 
 This also means you could write your own Custom Elements that didn't use Polymer
 and so long as they fired a `[property]-changed` event, and the

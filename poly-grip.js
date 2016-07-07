@@ -34,7 +34,7 @@ angular.module('robdodson.poly-grip', []).
               if (oldValue !== newValue && angular.isFunction(getter.assign)) {
                 scope.$evalAsync(function(scope) {
                   getter.assign(scope, newValue);
-                })
+                });
               }
             }
           }
