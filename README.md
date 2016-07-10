@@ -16,9 +16,9 @@ Polymer directive to hold all yr bindings together 😁
    bindings in sync.
 
 ```html
-<div ng-controller="MyCtrl">
-  {{greeting}}
-  <fancy-input message="{{greeting}}" poly-grip></fancy-input>
+<div ng-controller="MainCtrl as main">
+  {{main.greeting}}
+  <fancy-input message="{{main.greeting}}" poly-grip></fancy-input>
 </div>
 ```
 
