@@ -1,4 +1,4 @@
-# ![angular-custom-elements](media/header.png)
+# angular-custom-elements
 
 Angular 1.x directive to hold all yr Custom Element bindings together 😁
 
