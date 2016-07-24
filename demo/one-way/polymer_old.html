@@ -1,0 +1,72 @@
+<!--
+Copyright 2016 Google Inc. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!doctype html>
+
+<head>
+  <script data-require="angular.js@1.5.x" src="https://code.angularjs.org/1.5.3/angular.js" data-semver="1.5.x"></script>
+  <script src="../../ce-bindings.js"></script>
+  <script src="https://polygit.org/components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link href="https://polygit.org/components/polymer/polymer.html" rel="import">
+  <link href="polymer-elements/my-element.html" rel="import">
+  <meta charset="utf-8">
+</head>
+
+<body ng-app="demo">
+
+  <my-app></my-app>
+
+  <script>
+    var app = angular.module('demo', ['robdodson.ce-bindings']);
+    app.component('myApp', {
+      template: `
+        <p>Angular array is: {{$ctrl.arr}}</p>
+        <p>Angular object is: {{$ctrl.obj}}</p>
+        <p>Angular string is: {{$ctrl.str}}</p>
+        <button ng-click="$ctrl.updateArray()">Update Array</button>
+        <button ng-click="$ctrl.updateObject()">Update Object</button>
+        <button ng-click="$ctrl.updateStr()">Update String</button>
+
+        <hr>
+
+        <my-element friends="$ctrl.arr"
+                    pokemon="$ctrl.obj"
+                    animalz="$ctrl.str"
+                    on-foo-bar="$ctrl.doSomething($event)"
+                    ce-bind-one></my-element>`,
+      controller: function() {
+        this.arr = ['Addy', 'Eric', 'Matt', 'Sam'];
+        this.obj = {
+          name: 'pikachu'
+        };
+        this.str = 'cat snake';
+
+        this.updateArray = function() {
+          this.arr.push('David');
+        };
+
+        this.updateObject = function() {
+          this.obj.name = 'jigglypuff';
+        };
+
+        this.updateStr = function() {
+          this.str = 'trash panda';
+        };
+
+        this.doSomething = function(event) {
+          alert(`heard output: ${event.detail.secret}`);
+        };
+      }
+    });
+  </script>
+</body>

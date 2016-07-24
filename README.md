@@ -1,24 +1,24 @@
-# ![angular-poly-grip](media/header.png)
+# ![angular-custom-elements](media/header.png)
 
-Polymer directive to hold all yr bindings together 😁
+Angular 1.x directive to hold all yr Custom Element bindings together 😁
 
 *note*: This is still experimental so use at your own risk
 
 ## Install
 
-> bower install robdodson/angular-poly-grip
+> bower install robdodson/angular-custom-elements
 
 ## Usage
 
-1. Include the `poly-grip.js` script provided by this component in your app.
-2. Add `robdodson.poly-grip` as a module dependency to your app.
-3. Add the `poly-grip` directive to any Polymer element to keep its two-way
-   bindings in sync.
+1. Include the `ce-bindings.js` script provided by this component in your app.
+2. Add `robdodson.ce-bindings` as a module dependency to your app.
+3. *For two-way bindings*: Add the `ce-bind-two` directive to any Custom Element
+    /Polymer Element, to keep its two-way bindings in sync.
 
 ```html
 <div ng-controller="MainCtrl as main">
   {{main.greeting}}
-  <fancy-input message="{{main.greeting}}" poly-grip></fancy-input>
+  <fancy-input message="{{main.greeting}}" ce-bind-two></fancy-input>
 </div>
 ```
 
