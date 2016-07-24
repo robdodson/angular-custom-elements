@@ -2,7 +2,7 @@
 
 Angular 1.x directive to hold all yr Custom Element bindings together 😁
 
-*note*: This is still experimental so use at your own risk
+*note: This is still experimental so use at your own risk*
 
 ## Install
 
@@ -10,10 +10,10 @@ Angular 1.x directive to hold all yr Custom Element bindings together 😁
 
 ## Usage
 
-- Include the `ce-bindings.js` script provided by this component in your app.
+- Include the `ce-bindings.js` script in your page.
 - Add `robdodson.ce-bindings` as a module dependency to your app.
-- **For two-way bindings**: Add the `ce-bind-two` directive to any Custom Element
-    /Polymer Element, to keep its two-way bindings in sync.
+- **For two-way bindings**: Add the `ce-bind-two` directive to any Custom
+Element or Polymer Element to keep its two-way bindings in sync.
 
 ```html
 <div ng-controller="MainCtrl as main">
@@ -22,8 +22,8 @@ Angular 1.x directive to hold all yr Custom Element bindings together 😁
 </div>
 ```
 
-- **For one-way bindings**: Add the `ce-bind-one` directive to any Custom Element/
-   Polymer Element, to keep its one-way bindings in sync.
+- **For one-way bindings**: Add the `ce-bind-one` directive to any Custom
+Element or Polymer Element, to keep its one-way bindings in sync.
 
 ```js
 app.component('fooComponent', {
@@ -38,6 +38,8 @@ app.component('fooComponent', {
 
 ## How does it work?
 
+### Two-way bindings
+
 Polymer's two-way binding system is event based. Anytime a bindable property
 changes it fires an event named: `[property]-changed`. For example, a two-way
 bindable property named `foo` would fire a `foo-changed` event.
@@ -48,6 +50,20 @@ and take the new value and pass it into our scope using `$evalAsync`.
 This also means you could write your own Custom Elements that didn't use Polymer
 and so long as they fired a `[property]-changed` event, and the
 `event.detail.value` contained the new value, it would also work.
+
+### One-way bindings
+
+For Angular 1.5 style one-way bindings, we look at the Input, e.g.
+`friend="$ctrl.person"`, set the property on the Custom Element using the value
+from `$ctrl.person`, and create a watcher to update the Custom Element anytime
+the `$ctrl` property changes.
+
+For Outputs, we look for any attribute starting with `on-` and create an event
+listener which triggers the corresponding handler in our Angular controller.
+E.g. `on-person-changed="$ctrl.updatePerson($event)"` will listen for the
+`person-changed` event and call the controller's `updatePerson` method,
+passing the event object to it. The controller can then take the value of
+`event.detail` and choose what to do with it.
 
 ## How is this different from other Polymer + Angular adapters?
 
