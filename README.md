@@ -56,14 +56,26 @@ and so long as they fired a `[property]-changed` event, and the
 For Angular 1.5 style one-way bindings, we look at the Input, e.g.
 `friend="$ctrl.person"`, set the property on the Custom Element using the value
 from `$ctrl.person`, and create a watcher to update the Custom Element anytime
-the `$ctrl` property changes.
+the `$ctrl.person` property changes.
 
 For Outputs, we look for any attribute starting with `on-` and create an event
 listener which triggers the corresponding handler in our Angular controller.
 E.g. `on-person-changed="$ctrl.updatePerson($event)"` will listen for the
 `person-changed` event and call the controller's `updatePerson` method,
 passing the event object to it. The controller can then take the value of
-`event.detail` and choose what to do with it.
+`event.detail` and choose what to do with it. Because Custom Elements typically
+communicate to the outside world using Events, this binding will **only** create
+event listeners. This means you cannot use the Angular 1.5 approach of creating
+a callback with named arguments:
+
+```
+// This will NOT work. The argument will be ignored and the handler
+// will always be called with the event object
+on-person-changed="$ctrl.updatePerson({name: 'Bob'})"
+```
+
+Instead, treat these as regular event listeners and use the value(s) passed
+via `event.detail`.
 
 ## How is this different from other Polymer + Angular adapters?
 
