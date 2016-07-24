@@ -22,6 +22,20 @@ Angular 1.x directive to hold all yr Custom Element bindings together 😁
 </div>
 ```
 
+4. *For on-way bindings*: Add the `ce-bind-one` directive to any Custom Element/
+   Polymer Element, to keep its one-way bindings in sync.
+
+```js
+app.component('fooComponent', {
+ template: `
+   <p>Angular string is: {{$ctrl.str}}</p>
+   <my-input message="$ctrl.str"
+             on-message-changed="$ctrl.onMessageChanged($event)"
+             ce-bind-one>
+   </my-input>
+  `
+```
+
 ## How does it work?
 
 Polymer's two-way binding system is event based. Anytime a bindable property
