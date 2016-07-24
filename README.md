@@ -10,9 +10,9 @@ Angular 1.x directive to hold all yr Custom Element bindings together 😁
 
 ## Usage
 
-1. Include the `ce-bindings.js` script provided by this component in your app.
-2. Add `robdodson.ce-bindings` as a module dependency to your app.
-3. *For two-way bindings*: Add the `ce-bind-two` directive to any Custom Element
+- Include the `ce-bindings.js` script provided by this component in your app.
+- Add `robdodson.ce-bindings` as a module dependency to your app.
+- **For two-way bindings**: Add the `ce-bind-two` directive to any Custom Element
     /Polymer Element, to keep its two-way bindings in sync.
 
 ```html
@@ -22,7 +22,7 @@ Angular 1.x directive to hold all yr Custom Element bindings together 😁
 </div>
 ```
 
-4. *For on-way bindings*: Add the `ce-bind-one` directive to any Custom Element/
+- **For one-way bindings**: Add the `ce-bind-one` directive to any Custom Element/
    Polymer Element, to keep its one-way bindings in sync.
 
 ```js
