@@ -1,0 +1,22 @@
+{
+  "name": "angular-custom-elements",
+  "version": "1.0.0",
+  "description": "Angular 1.x directive to hold all yr Custom Element bindings together 😁",
+  "main": "ce-bindings.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robdodson/angular-custom-elements.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/robdodson/angular-custom-elements/issues"
+  },
+  "homepage": "https://github.com/robdodson/angular-custom-elements#readme",
+  "devDependencies": {
+    "eslint": "^3.1.1"
+  }
+}
