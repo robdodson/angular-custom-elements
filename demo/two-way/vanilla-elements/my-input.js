@@ -18,11 +18,13 @@
 'use strict';
 
 class MyInput extends HTMLElement {
-  attachedCallback() {
+  createdCallback() {
     // Stamp template
     this.innerHTML = `<input class="my-input__input" type="text">`;
     this.input = this.querySelector('.my-input__input');
+  }
 
+  attachedCallback() {
     // Setup properties
     this.message = this.getAttribute('message');
 
