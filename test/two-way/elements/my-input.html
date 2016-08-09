@@ -13,7 +13,8 @@ limitations under the License.
 
 <dom-module id="my-input">
   <template>
-    <input type="text" value="{{message::input}}">
+    <p>Polymer string is: <span id="wc-string">[[message]]</span></p>
+    <button id="wc-button" on-click="updateString">Update string in Polymer</button>
   </template>
   <script>
     HTMLImports.whenReady(function() {
@@ -22,9 +23,11 @@ limitations under the License.
         properties: {
           message: {
             type: String,
-            value: 'Hello, World',
             notify: true
           }
+        },
+        updateString: function() {
+          this.message = 'String changed in Polymer';
         }
       });
     });
