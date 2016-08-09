@@ -13,8 +13,8 @@ limitations under the License.
 
 <dom-module id="my-person">
   <template>
-    <p>The person's name is: {{person.name}}</p>
-    <button on-click="updateName">Update name in Custom Element</button>
+    <p>The person's name is: <span id="wc-object">{{person.name}}</span></p>
+    <button id="wc-button" on-click="updateName">Update name in Custom Element</button>
   </template>
   <script>
     HTMLImports.whenReady(function() {

@@ -13,8 +13,8 @@ limitations under the License.
 
 <dom-module id="my-input">
   <template>
-    <p>Polymer string is: [[message]]</p>
-    <button on-click="updateString">Update string in Polymer</button>
+    <p>Polymer string is: <span id="wc-string">[[message]]</span></p>
+    <button id="wc-button" on-click="updateString">Update string in Polymer</button>
   </template>
   <script>
     HTMLImports.whenReady(function() {

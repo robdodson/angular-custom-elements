@@ -13,12 +13,10 @@ limitations under the License.
 
 <dom-module id="my-list">
   <template>
-    <ul>
-      <template is="dom-repeat" items="[[friends]]">
-        <li>[[item]]</li>
-      </template>
-    </ul>
-    <button on-click="addFriend">Add friend in Custom Element</button>
+    <template is="dom-repeat" items="[[friends]]">
+      <div class="wc-array-item">[[item]]</div>
+    </template>
+    <button id="wc-button" on-click="addFriend">Add friend in Custom Element</button>
   </template>
   <script>
     HTMLImports.whenReady(function() {
