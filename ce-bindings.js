@@ -201,7 +201,7 @@ angular.module('robdodson.ce-bindings', [])
 
           $scope.$on('$destroy', function() {
             for (var prop in attrMap) {
-              elements[0].removeEventListener(denormalize(prop) + '-changed', applyChange);
+              $element[0].removeEventListener(denormalize(prop) + '-changed', applyChange);
             }
           });
         }
