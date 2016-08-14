@@ -24,19 +24,19 @@ limitations under the License.
 
 <body ng-app="test">
 
-  <div ng-controller="ArrCtrl as arr">
+  <div ng-controller="MainCtrl as main">
     <p>Angular array is: </p>
-    <div class="ng-array-item" ng-repeat="n in arr.friends">
+    <div class="ng-array-item" ng-repeat="n in main.friends">
       {{n}}
     </div>
-    <button id="ng-button" ng-click="arr.addFriend()">Update array in Angular</button>
-    <my-list friends="{{arr.friends}}" ce-bind-two></my-list>
+    <button id="ng-button" ng-click="main.addFriend()">Update array in Angular</button>
+    <my-list friends="{{main.friends}}" ce-bind-two></my-list>
   </div>
 
   <script>
     var myApp = angular.module('test', ['robdodson.ce-bindings']);
 
-    myApp.controller('ArrCtrl', function() {
+    myApp.controller('MainCtrl', function() {
       this.friends = ['Eric', 'Addy', 'Alice'];
       this.addFriend = function() {
         this.friends.push('Paul');

@@ -178,11 +178,23 @@ angular.module('robdodson.ce-bindings', [])
                 newValue = event.detail.value;
               }
               getter = attrMap[attributeName];
+              setter = getter.assign;
               oldValue = getter($scope);
 
-              if ((typeof newValue == 'object' || oldValue !== newValue) && angular.isFunction(getter.assign)) {
+              if (!angular.equals(newValue, oldValue) && angular.isFunction(setter)) {
                 $scope.$evalAsync(function($scope) {
-                  getter.assign($scope, newValue);
+                  if (angular.isArray(newValue)) {
+                    // FIXME: This is probably not going to work if we're
+                    // mutating the array inside of an ng-repeat. Probably
+                    // need to mutate the original array being referenced
+                    // so we don't shadow the property on the prototype by
+                    // assigning a new object 
+                    setter($scope, newValue);
+                  } else if (angular.isObject(newValue)) {
+                    Object.assign(oldValue, newValue);
+                  } else {
+                    setter($scope, newValue);
+                  }
                 });
               }
             }

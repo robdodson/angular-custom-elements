@@ -23,16 +23,16 @@ limitations under the License.
 </head>
 
 <body ng-app="test">
-  <div ng-controller="ObjCtrl as obj">
-    <p>Angular object is: <span id="ng-object">{{obj.person.name}}</span></p>
-    <button id="ng-button" ng-click="obj.updateName()">Update object in Angular</button>
-    <my-person person="{{obj.person}}" ce-bind-two></my-person>
+  <div ng-controller="MainCtrl as main">
+    <p>Angular object is: <span id="ng-object">{{main.person.name}}</span></p>
+    <button id="ng-button" ng-click="main.updateName()">Update object in Angular</button>
+    <my-person person="{{main.person}}" ce-bind-two></my-person>
   </div>
 
   <script>
     var myApp = angular.module('test', ['robdodson.ce-bindings']);
 
-    myApp.controller('ObjCtrl', function() {
+    myApp.controller('MainCtrl', function() {
       this.person = { name: 'Lisa' };
       this.updateName = function() {
         this.person.name = 'Joe';

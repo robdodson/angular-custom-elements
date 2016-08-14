@@ -18,25 +18,38 @@ limitations under the License.
   <script src="../../ce-bindings.js"></script>
   <script src="https://polygit.org/components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link href="https://polygit.org/components/polymer/polymer.html" rel="import">
-  <link href="elements/my-input.html" rel="import">
+  <link href="elements/friend-name.html" rel="import">
   <meta charset="utf-8">
 </head>
 
 <body ng-app="test">
+
   <div ng-controller="MainCtrl as main">
-    Angular string is: <span id="ng-string">{{main.greeting}}</span>
-    <button id="ng-button" ng-click="main.updateStr()">Update string in Angular</button>
-    <my-input message="{{main.greeting}}" ce-bind-two></my-input>
+    <div ng-repeat="friend in main.friends">
+      Angular friend is: <span class="ng-repeat-item">{{friend.name}}</span>
+      <!--
+        Note we pass the entire friend object, instead of the primitive
+        string `friend.name`. This is because ng-repeat creates its own
+        scope and primitive values are passed "by value", not "by reference"
+        so we want to make sure we're passing an object reference and not
+        just a string value
+      -->
+      <button class="ng-button" ng-click="main.changeFriend(friend)">Change friend</button>
+      <friend-name friend="{{friend}}"
+                  ce-bind-two>
+      </friend-name>
+      <hr>
+    </div>
+    Parent scope friend is: <input id="parent-item" ng-model="main.friends[2].name"/>
   </div>
 
   <script>
     var myApp = angular.module('test', ['robdodson.ce-bindings']);
-
-    myApp.controller('MainCtrl', function() {
-      this.greeting = 'Hello, from Angular!';
-      this.updateStr = function() {
-        this.greeting = 'String changed in Angular';
-      }
+    myApp.controller('MainCtrl', function($timeout) {
+      this.friends = [{name: 'Eric'}, {name:'Addy'}, {name:'Alice'}];
+      this.changeFriend = function(friend) {
+        friend.name = friend.name + '-ng';
+      };
     });
   </script>
 
