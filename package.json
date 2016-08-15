@@ -4,7 +4,7 @@
   "description": "Angular 1.x directive to hold all yr Custom Element bindings together 😁",
   "main": "ce-bindings.js",
   "scripts": {
-    "test": "python -m SimpleHTTPServer && webdriver-manager start && protractor protractor.conf.js"
+    "test": "gulp"
   },
   "repository": {
     "type": "git",
