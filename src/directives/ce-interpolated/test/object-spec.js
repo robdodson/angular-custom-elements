@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-describe('one-way, objects', function() {
+describe('interpolated, objects', function() {
   it('should have the same sub-property', function() {
-    browser.get('http://127.0.0.1:8000/test/one-way/object-spec.html');
+    browser.get('http://127.0.0.1:8000/src/directives/ce-interpolated/test/object-spec.html');
 
     var ngObject;
     var wcObject;

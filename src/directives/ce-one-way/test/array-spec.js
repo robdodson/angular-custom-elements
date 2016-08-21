@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-describe('interpolated, arrays', function() {
+describe('one-way, arrays', function() {
   it('should have the same array', function() {
-    browser.get('http://127.0.0.1:8000/test/interpolated/array-spec.html');
+    browser.get('http://127.0.0.1:8000/src/directives/ce-one-way/test/array-spec.html');
     
     var ngArrayItems;
     var wcArrayItems;

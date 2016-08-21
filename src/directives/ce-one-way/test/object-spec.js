@@ -15,26 +15,26 @@
  * limitations under the License.
  */
 
-describe('one-way, strings', function() {
-  it('should have the same string', function() {
-    browser.get('http://127.0.0.1:8000/test/one-way/string-spec.html');
+describe('one-way, objects', function() {
+  it('should have the same sub-property', function() {
+    browser.get('http://127.0.0.1:8000/src/directives/ce-one-way/test/object-spec.html');
 
-    var ngString;
-    var wcString;
+    var ngObject;
+    var wcObject;
     var ngButton = element(by.id('ng-button'));
     var wcButton = element(by.id('wc-button'));
 
-    ngString = element(by.id('ng-string'));
-    wcString = element(by.id('wc-string'));
-    expect(ngString.getText()).toEqual('Hello, from Angular!');
-    expect(wcString.getText()).toEqual('Hello, from Angular!');
+    ngObject = element(by.id('ng-object'));
+    wcObject = element(by.id('wc-object'));
+    expect(ngObject.getText()).toEqual('Lisa');
+    expect(wcObject.getText()).toEqual('Lisa');
 
     ngButton.click();
-    expect(ngString.getText()).toEqual('String changed in Angular');
-    expect(wcString.getText()).toEqual('String changed in Angular');
+    expect(ngObject.getText()).toEqual('Joe');
+    expect(wcObject.getText()).toEqual('Joe');
 
     wcButton.click();
-    expect(ngString.getText()).toEqual('String changed in Polymer');
-    expect(wcString.getText()).toEqual('String changed in Polymer');
+    expect(ngObject.getText()).toEqual('Alex');
+    expect(wcObject.getText()).toEqual('Alex');
   });
 });

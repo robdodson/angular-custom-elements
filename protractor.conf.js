@@ -1,5 +1,1 @@
-exports.config = {
-  specs: [
-    'test/**/*-spec.js'
-  ]
-};
+exports.config = {};
