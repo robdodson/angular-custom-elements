@@ -8,11 +8,13 @@ Angular 1.x directive to hold all yr Custom Element bindings together 😁
 
 ## Install
 
-> bower install robdodson/angular-custom-elements
+```
+npm install --save angular-custom-elements
+```
 
 ## Usage
 
-- Include the `dist/ce-bind.(min.)js` script in your page.
+- Include the `dist/ce-bind.(min).js` script in your page.
 - Add `robdodson.ce-bind` as a module dependency to your app.
 - **For interpolated/two-way bindings**: Add the `ce-interpolated` directive to
 any Custom Element or Polymer Element to keep your interpolated bindings in sync.
