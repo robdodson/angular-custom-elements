@@ -1,5 +1,7 @@
 # angular-custom-elements
 
+[![Build Status](https://travis-ci.org/robdodson/angular-custom-elements.svg?branch=travis-test)](https://travis-ci.org/robdodson/angular-custom-elements)
+
 Angular 1.x directive to hold all yr Custom Element bindings together 😁
 
 *note: This is still experimental so use at your own risk*
