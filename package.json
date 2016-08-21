@@ -4,7 +4,6 @@
   "description": "Angular 1.x directive to hold all yr Custom Element bindings together 😁",
   "main": "dist/ce-bind.js",
   "scripts": {
-    "prepublish": "in-publish && gulp prepublish || echo 'Skipping prepublish 🤗'",
     "test": "gulp"
   },
   "repository": {
@@ -17,9 +16,6 @@
     "url": "https://github.com/robdodson/angular-custom-elements/issues"
   },
   "homepage": "https://github.com/robdodson/angular-custom-elements#readme",
-  "dependencies": {
-    "in-publish": "^2.0.0"
-  },
   "devDependencies": {
     "del": "^2.2.1",
     "eslint": "^3.1.1",
