@@ -20,6 +20,7 @@ script:
 - npm test
 deploy:
   provider: npm
+  email: "lets.email.rob@gmail.com"
   on:
     tags: true
   api_key:
