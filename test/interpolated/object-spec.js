@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-describe('two-way, objects', function() {
+describe('interpolated, objects', function() {
   it('should have the same sub-property', function() {
-    browser.get('http://127.0.0.1:8000/test/two-way/object-spec.html');
+    browser.get('http://127.0.0.1:8000/test/interpolated/object-spec.html');
 
     var ngObject;
     var wcObject;

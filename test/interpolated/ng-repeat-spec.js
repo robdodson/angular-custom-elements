@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-describe('two-way, ng-repeat', function() {
+describe('interpolated, ng-repeat', function() {
   it('should update the value in the local and parent scopes', function() {
-    browser.get('http://127.0.0.1:8000/test/two-way/ng-repeat-spec.html');
+    browser.get('http://127.0.0.1:8000/test/interpolated/ng-repeat-spec.html');
     
     var ngItem = element.all(by.css('.ng-repeat-item')).last();
     var wcItem = element.all(by.css('.wc-repeat-item')).last();

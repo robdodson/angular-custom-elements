@@ -141,10 +141,10 @@
       }
     })
 
-    // Make Angular 1.x two-way bindings work.
+    // Make Angular 1.x interpolated bindings work.
     // Finds interpolated bindings and sets up event listeners
     // to hear when the underlying Polymer property updates.
-    // Because Polymer's two-way binding system is event based
+    // Because Polymer's interpolated binding system is event based
     // we can listen for the [prop]-changed event dispatched
     // by a Polymer element and apply the new value to the
     // controller's scope.
