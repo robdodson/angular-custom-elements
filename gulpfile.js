@@ -64,4 +64,5 @@ gulp.task('build', ['clean', 'test'], function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['build']);
+gulp.task('prepublish', ['build']);
+gulp.task('default', ['test']);
