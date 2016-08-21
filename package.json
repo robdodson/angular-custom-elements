@@ -17,9 +17,14 @@
   },
   "homepage": "https://github.com/robdodson/angular-custom-elements#readme",
   "devDependencies": {
+    "del": "^2.2.1",
     "eslint": "^3.1.1",
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
     "gulp-connect": "^5.0.0",
-    "gulp-protractor": "^3.0.0"
+    "gulp-protractor": "^3.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0",
+    "gulp-umd": "^0.2.0"
   }
 }
