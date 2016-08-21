@@ -15,9 +15,6 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "angular": "^1.5.8"
-  },
   "devDependencies": {
     "angular": "^1.5.8",
     "polymer": "Polymer/polymer#^1.6.1"
