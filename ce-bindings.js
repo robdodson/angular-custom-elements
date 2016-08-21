@@ -26,6 +26,8 @@
 } (this, function(angular) {
 
   angular.module('robdodson.ce-bindings', [])
+    .directive('ceBindOne', ceBindOne)
+    .directive('ceBindTwo', ['$parse', ceBindTwo]);
 
     // Make Angular 1.5, one-way bindings work.
     // Data is always copied before it is passed into the
@@ -34,7 +36,7 @@
     // have a notion of passing callbacks in, an Output
     // is treated as a regular event handler and passed
     // the CustomEvent dispatched by the element
-    .directive('ceBindOne', function() {
+    function ceBindOne() {
       return {
         restrict: 'A',
         scope: false,
@@ -139,7 +141,7 @@
           };
         }
       }
-    })
+    }
 
     // Make Angular 1.x interpolated bindings work.
     // Finds interpolated bindings and sets up event listeners
@@ -151,7 +153,7 @@
     // This also works for vanilla Custom Elements so long as
     // they dispatch a [prop]-changed event where
     // event.detail.value equals the new value
-    .directive('ceBindTwo', ['$parse', function($parse) {
+    function ceBindTwo($parse) {
       return {
         restrict: 'A',
         scope: false,
@@ -229,5 +231,5 @@
           }
         }
       };
-    }]);
+    }
 }));
