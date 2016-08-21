@@ -15,8 +15,8 @@ limitations under the License.
 
 <head>
   <script src="../../bower_components/angular/angular.js"></script>
-  <script src="../../ce-bindings.js"></script>
-  <script src="../../ce-bind-one.directive.js"></script>
+  <script src="../../ce-bind.module.js"></script>
+  <script src="../../ce-one-way.directive.js"></script>
   <script src="../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link href="../../bower_components/polymer/polymer.html" rel="import">
   <link href="elements/my-person.html" rel="import">
@@ -26,14 +26,14 @@ limitations under the License.
 <body ng-app="test">
   <test-object></test-object>
   <script>
-    var app = angular.module('test', ['robdodson.ce-bindings']);
+    var app = angular.module('test', ['robdodson.ce-bind']);
     app.component('testObject', {
       template: `
         <p>Angular object is: <span id="ng-object">{{$ctrl.person.name}}</span></p>
         <button id="ng-button" ng-click="$ctrl.updateObj()">Update object in Angular</button>
         <my-person person="$ctrl.person"
                   on-person-changed="$ctrl.onPersonChanged($event)"
-                  ce-bind-one>
+                  ce-one-way>
         </my-person>
       `,
       controller: function() {

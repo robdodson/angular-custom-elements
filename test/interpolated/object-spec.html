@@ -15,8 +15,8 @@ limitations under the License.
 
 <head>
   <script src="../../bower_components/angular/angular.js"></script>
-  <script src="../../ce-bindings.js"></script>
-  <script src="../../ce-bind-two.directive.js"></script>
+  <script src="../../ce-bind.module.js"></script>
+  <script src="../../ce-interpolated.directive.js"></script>
   <script src="../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link href="../../bower_components/polymer/polymer.html" rel="import">
   <link href="elements/my-person.html" rel="import">
@@ -27,11 +27,11 @@ limitations under the License.
   <div ng-controller="MainCtrl as main">
     <p>Angular object is: <span id="ng-object">{{main.person.name}}</span></p>
     <button id="ng-button" ng-click="main.updateName()">Update object in Angular</button>
-    <my-person person="{{main.person}}" ce-bind-two></my-person>
+    <my-person person="{{main.person}}" ce-interpolated></my-person>
   </div>
 
   <script>
-    var myApp = angular.module('test', ['robdodson.ce-bindings']);
+    var myApp = angular.module('test', ['robdodson.ce-bind']);
 
     myApp.controller('MainCtrl', function() {
       this.person = { name: 'Lisa' };

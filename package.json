@@ -2,7 +2,7 @@
   "name": "angular-custom-elements",
   "version": "1.0.0",
   "description": "Angular 1.x directive to hold all yr Custom Element bindings together 😁",
-  "main": "ce-bindings.js",
+  "main": "ce-bind.module.js",
   "scripts": {
     "test": "gulp"
   },

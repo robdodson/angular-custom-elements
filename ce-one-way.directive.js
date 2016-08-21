@@ -29,12 +29,12 @@
   * @desc Enable unidirectional data bindings for Angular 1.5 components
   * @example <my-input message="$ctrl.str"
               on-message-changed="$ctrl.onMessageChanged($event)"
-              ce-bind-one>
+              ce-one-way>
             </my-input>
   */
   angular
-    .module('robdodson.ce-bindings')
-    .directive('ceBindOne', ceBindOne);
+    .module('robdodson.ce-bind')
+    .directive('ceOneWay', ceOneWay);
 
   // Make Angular 1.5, one-way bindings work.
   // Data is always copied before it is passed into the
@@ -43,7 +43,7 @@
   // have a notion of passing callbacks in, an Output
   // is treated as a regular event handler and passed
   // the CustomEvent dispatched by the element
-  function ceBindOne() {
+  function ceOneWay() {
     return {
       restrict: 'A',
       scope: false,

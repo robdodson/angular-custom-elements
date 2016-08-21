@@ -25,6 +25,6 @@
   }
 } (this, function(angular) {
 
-  angular.module('robdodson.ce-bindings', []);
+  angular.module('robdodson.ce-bind', []);
 
 }));

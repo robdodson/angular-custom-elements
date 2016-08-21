@@ -27,11 +27,11 @@
 
   /**
   * @desc Enable two-way/interpolated data bindings for Angular + Custom Elements
-  * @example <fancy-input message="{{main.greeting}}" ce-bind-two></fancy-input>
+  * @example <fancy-input message="{{main.greeting}}" ce-interpolated></fancy-input>
   */
   angular
-    .module('robdodson.ce-bindings')
-    .directive('ceBindTwo', ceBindTwo);
+    .module('robdodson.ce-bind')
+    .directive('ceInterpolated', ceInterpolated);
 
   // Make Angular 1.x interpolated bindings work.
   // Finds interpolated bindings and sets up event listeners
@@ -43,7 +43,7 @@
   // This also works for vanilla Custom Elements so long as
   // they dispatch a [prop]-changed event where
   // event.detail.value equals the new value
-  function ceBindTwo($parse) {
+  function ceInterpolated($parse) {
     return {
       restrict: 'A',
       scope: false,

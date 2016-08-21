@@ -15,8 +15,8 @@ limitations under the License.
 
 <head>
   <script src="../../bower_components/angular/angular.js"></script>
-  <script src="../../ce-bindings.js"></script>
-  <script src="../../ce-bind-two.directive.js"></script>
+  <script src="../../ce-bind.module.js"></script>
+  <script src="../../ce-interpolated.directive.js"></script>
   <script src="../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link href="../../bower_components/polymer/polymer.html" rel="import">
   <link href="elements/my-list.html" rel="import">
@@ -31,11 +31,11 @@ limitations under the License.
       {{n}}
     </div>
     <button id="ng-button" ng-click="main.addFriend()">Update array in Angular</button>
-    <my-list friends="{{main.friends}}" ce-bind-two></my-list>
+    <my-list friends="{{main.friends}}" ce-interpolated></my-list>
   </div>
 
   <script>
-    var myApp = angular.module('test', ['robdodson.ce-bindings']);
+    var myApp = angular.module('test', ['robdodson.ce-bind']);
 
     myApp.controller('MainCtrl', function() {
       this.friends = ['Eric', 'Addy', 'Alice'];

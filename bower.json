@@ -2,7 +2,7 @@
   "name": "angular-custom-elements",
   "description": "Angular 1.x directive to hold all yr Custom Element bindings together 😁",
   "private": true,
-  "main": "ce-bindings.js",
+  "main": "ce-bind.module.js",
   "authors": [
     "Rob Dodson <robdodson@google.com>"
   ],

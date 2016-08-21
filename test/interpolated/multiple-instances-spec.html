@@ -15,8 +15,8 @@ limitations under the License.
 
 <head>
   <script src="../../bower_components/angular/angular.js"></script>
-  <script src="../../ce-bindings.js"></script>
-  <script src="../../ce-bind-two.directive.js"></script>
+  <script src="../../ce-bind.module.js"></script>
+  <script src="../../ce-interpolated.directive.js"></script>
   <script src="../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link href="../../bower_components/polymer/polymer.html" rel="import">
   <link href="elements/my-input.html" rel="import">
@@ -29,13 +29,13 @@ limitations under the License.
     <div>Angular string is: <span class="ng-string">{{main.second}}</span></div>
     <div>Angular string is: <span class="ng-string">{{main.third}}</span></div>
     <button id="ng-button" ng-click="main.updateStr()">Update string in Angular</button>
-    <my-input message="{{main.first}}" ce-bind-two></my-input>
-    <my-input message="{{main.second}}" ce-bind-two></my-input>
-    <my-input message="{{main.third}}" ce-bind-two></my-input>
+    <my-input message="{{main.first}}" ce-interpolated></my-input>
+    <my-input message="{{main.second}}" ce-interpolated></my-input>
+    <my-input message="{{main.third}}" ce-interpolated></my-input>
   </div>
 
   <script>
-    var myApp = angular.module('test', ['robdodson.ce-bindings']);
+    var myApp = angular.module('test', ['robdodson.ce-bind']);
 
     myApp.controller('MainCtrl', function() {
       this.first = 'First string from Angular';

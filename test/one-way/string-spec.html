@@ -15,8 +15,8 @@ limitations under the License.
 
 <head>
   <script src="../../bower_components/angular/angular.js"></script>
-  <script src="../../ce-bindings.js"></script>
-  <script src="../../ce-bind-one.directive.js"></script>
+  <script src="../../ce-bind.module.js"></script>
+  <script src="../../ce-one-way.directive.js"></script>
   <script src="../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link href="../../bower_components/polymer/polymer.html" rel="import">
   <link href="elements/my-input.html" rel="import">
@@ -26,7 +26,7 @@ limitations under the License.
 <body ng-app="test">
   <string-test></string-test>
   <script>
-    var app = angular.module('test', ['robdodson.ce-bindings']);
+    var app = angular.module('test', ['robdodson.ce-bind']);
     app.component('stringTest', {
       template: `
         <p>Angular string is: <span id="ng-string">{{$ctrl.str}}</span></p>
@@ -34,7 +34,7 @@ limitations under the License.
         <my-input id="wc-string"
                   message="$ctrl.str"
                   on-message-changed="$ctrl.onMessageChanged($event)"
-                  ce-bind-one>
+                  ce-one-way>
         </my-input>
       `,
       controller: function() {

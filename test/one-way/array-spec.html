@@ -15,8 +15,8 @@ limitations under the License.
 
 <head>
   <script src="../../bower_components/angular/angular.js"></script>
-  <script src="../../ce-bindings.js"></script>
-  <script src="../../ce-bind-one.directive.js"></script>
+  <script src="../../ce-bind.module.js"></script>
+  <script src="../../ce-one-way.directive.js"></script>
   <script src="../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link href="../../bower_components/polymer/polymer.html" rel="import">
   <link href="elements/my-list.html" rel="import">
@@ -26,7 +26,7 @@ limitations under the License.
 <body ng-app="test">
   <test-array></test-array>
   <script>
-    var app = angular.module('test', ['robdodson.ce-bindings']);
+    var app = angular.module('test', ['robdodson.ce-bind']);
     app.component('testArray', {
       template: `
         <p>Angular array is: </p>
@@ -36,7 +36,7 @@ limitations under the License.
         <button id="ng-button" ng-click="$ctrl.updateArr()">Update array in Angular</button>
         <my-list friends="$ctrl.arr"
                   on-friends-changed="$ctrl.onFriendsChanged($event)"
-                  ce-bind-one>
+                  ce-one-way>
         </my-list>
       `,
       controller: function() {

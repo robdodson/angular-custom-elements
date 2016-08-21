@@ -15,8 +15,8 @@ limitations under the License.
 
 <head>
   <script src="../../bower_components/angular/angular.js"></script>
-  <script src="../../ce-bindings.js"></script>
-  <script src="../../ce-bind-two.directive.js"></script>
+  <script src="../../ce-bind.module.js"></script>
+  <script src="../../ce-interpolated.directive.js"></script>
   <script src="../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
   <link href="../../bower_components/polymer/polymer.html" rel="import">
   <link href="elements/my-input.html" rel="import">
@@ -28,11 +28,11 @@ limitations under the License.
     Toggle message:
     <input id="ng-checkbox" type="checkbox" ng-model="checked" ng-init="checked=false" />
     <div id="ng-string">{{main.greeting}}</div>
-    <my-input message="{{main.greeting}}" ng-if="checked" ce-bind-two></my-input>
+    <my-input message="{{main.greeting}}" ng-if="checked" ce-interpolated></my-input>
   </div>
 
   <script>
-    var myApp = angular.module('test', ['robdodson.ce-bindings']);
+    var myApp = angular.module('test', ['robdodson.ce-bind']);
 
     myApp.controller('MainCtrl', function() {
       this.greeting = 'Hello, from Angular!';

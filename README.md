@@ -12,19 +12,21 @@ Angular 1.x directive to hold all yr Custom Element bindings together 😁
 
 ## Usage
 
-- Include the `ce-bindings.js` script in your page.
-- Add `robdodson.ce-bindings` as a module dependency to your app.
-- **For interpolated bindings**: Add the `ce-bind-two` directive to any Custom
+- Include the `ce-bind.module.js` script in your page.
+- Add `robdodson.ce-bind` as a module dependency to your app.
+- **For interpolated/two-way bindings**: Add the `ce-interpolated.directive.js`
+script to your app and add the `ce-interpolated` directive to any Custom
 Element or Polymer Element to keep your interpolated bindings in sync.
 
 ```html
 <div ng-controller="MainCtrl as main">
   {{main.greeting}}
-  <fancy-input message="{{main.greeting}}" ce-bind-two></fancy-input>
+  <fancy-input message="{{main.greeting}}" ce-interpolated></fancy-input>
 </div>
 ```
 
-- **For one-way bindings**: Add the `ce-bind-one` directive to any Custom
+- **For one-way bindings**: Add the `ce-one-way.directive.js` script to your app
+and add the `ce-one-way` directive to any Custom
 Element or Polymer Element, to keep its one-way bindings in sync.
 
 ```js
@@ -33,7 +35,7 @@ app.component('fooComponent', {
    <p>Angular string is: {{$ctrl.str}}</p>
    <my-input message="$ctrl.str"
              on-message-changed="$ctrl.onMessageChanged($event)"
-             ce-bind-one>
+             ce-one-way>
    </my-input>
   `
 ```
@@ -81,16 +83,18 @@ via `event.detail`.
 
 ## How is this different from other Polymer + Angular adapters?
 
-The two adapters I've found are [angular-bind-polymer](https://github.com/eee-c/angular-bind-polymer) and [ng-polymer-elements](https://gabiaxel.github.io/ng-polymer-elements/). Both are
-very cool but they have limitations which `poly-grip` (hopefully) fixes.
+The two adapters I've found are
+[angular-bind-polymer](https://github.com/eee-c/angular-bind-polymer) and
+[ng-polymer-elements](https://gabiaxel.github.io/ng-polymer-elements/). Both are
+very cool but they have limitations which this project (hopefully) fixes.
 
 **angular-bind-polymer** relies on Mutation Observers to notify the scope when an
-element's attributes changes. This only works if the element chooses to serialize
+element's attributes change. This only works if the element chooses to serialize
 its internal state back to strings and reflect them to attributes. Most Polymer
 elements do not do this, meaning they can't be used with angular-bind-polymer.
 
-**ng-polymer-elements** attempts to map specific attributes exposed by Polymer
-elements but this becomes a bit of an arms race as every time an element creates
-a new attribute/property then `ng-polymer-elements` needs to be updated.
-It also relies on `Object.observe` which has been removed from the platform, so
-an additional polyfill is required.
+**ng-polymer-elements** attempts to create directives for specific attributes
+exposed by Polymer elements but this becomes a bit of an arms race as every time
+an element creates a new attribute/property then `ng-polymer-elements` needs to
+be updated. It also relies on `Object.observe` which has been removed from the
+platform, so an additional polyfill is required.
