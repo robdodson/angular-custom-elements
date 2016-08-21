@@ -15,139 +15,127 @@
  * limitations under the License.
  */
 
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define(['angular'], factory);
-  } else if (typeof exports === 'object') {
-    module.exports = factory(require('angular'));
-  } else {
-    root.returnExports = factory(root.angular);
-  }
-} (this, function(angular) {
+/**
+ * @desc Enable unidirectional data bindings for Angular 1.5 components
+ * @example <my-input message="$ctrl.str"
+             on-message-changed="$ctrl.onMessageChanged($event)"
+             ce-one-way>
+           </my-input>
+ */
+angular
+  .module('robdodson.ce-bind')
+  .directive('ceOneWay', ceOneWay);
 
-  /**
-  * @desc Enable unidirectional data bindings for Angular 1.5 components
-  * @example <my-input message="$ctrl.str"
-              on-message-changed="$ctrl.onMessageChanged($event)"
-              ce-one-way>
-            </my-input>
-  */
-  angular
-    .module('robdodson.ce-bind')
-    .directive('ceOneWay', ceOneWay);
+// Make Angular 1.5, one-way bindings work.
+// Data is always copied before it is passed into the
+// child to prevent the child from modifying state in
+// the parent. Because Polymer/Custom Elements don't
+// have a notion of passing callbacks in, an Output
+// is treated as a regular event handler and passed
+// the CustomEvent dispatched by the element
+function ceOneWay() {
+  return {
+    restrict: 'A',
+    scope: false,
+    compile: function($element, $attrs) {
 
-  // Make Angular 1.5, one-way bindings work.
-  // Data is always copied before it is passed into the
-  // child to prevent the child from modifying state in
-  // the parent. Because Polymer/Custom Elements don't
-  // have a notion of passing callbacks in, an Output
-  // is treated as a regular event handler and passed
-  // the CustomEvent dispatched by the element
-  function ceOneWay() {
-    return {
-      restrict: 'A',
-      scope: false,
-      compile: function($element, $attrs) {
+      // Find the event handler associated with the $ctrl
+      function getHandler(expression) {
+        var handler = expression.match(/(\w*)\((.*)\)/);
+        if (handler) {
+          return handler[1];
+        }
+      }
 
-        // Find the event handler associated with the $ctrl
-        function getHandler(expression) {
-          var handler = expression.match(/(\w*)\((.*)\)/);
-          if (handler) {
-            return handler[1];
-          }
+      // Remove Angular's camelCasing of event names and
+      // strip on- prefix
+      function getEvent(expression) {
+        var event = denormalize(expression);
+        return event.replace('on-', '');
+      }
+
+      // Convert Angular camelCase property to dash-case
+      function denormalize(str) {
+        return str.replace(/[A-Z]/g, function(c) {
+          return '-' + c.toLowerCase();
+        });
+      }
+
+      // Setup event handler and return a deregister function
+      // to be used during $destroy
+      function createHandler($scope, element, event, handler) {
+        var listener = function(e) {
+          $scope.$evalAsync(handler.bind($scope.$ctrl, e));
+        }
+        element.addEventListener(event, listener);
+        return function() {
+          element.removeEventListener(event, listener);
+        }
+      }
+
+      return function($scope, $element, $attrs) {
+        // Store event handler remover functions in
+        // here and use on $destroy
+        var cleanup = [];
+
+        // Setup an event handler to act as an output
+        // Since elements communicate to the outside world
+        // using events, we'll simulate angular's '&'
+        // output callbacks using regular event handlers
+        function makeOutput(handlerName, eventName) {
+          var handler = getHandler(handlerName);
+          var event = getEvent(eventName);
+          var removeHandler = createHandler(
+            $scope,
+            $element[0],
+            event,
+            $scope.$ctrl[handler]
+          );
+          cleanup.push(removeHandler);
         }
 
-        // Remove Angular's camelCasing of event names and
-        // strip on- prefix
-        function getEvent(expression) {
-          var event = denormalize(expression);
-          return event.replace('on-', '');
+        // Setup a watcher on the controller property
+        // and create a copy when setting data on the
+        // element so it can't mutate the parent's data
+        // TODO: Don't do a deep watch. Differentiate
+        // based on object type and use watchCollection
+        function makeInput(ctrlProp, elProp) {
+          $scope.$watch(ctrlProp, function(value) {
+            if (angular.isArray(value)) {
+              $element[0][elProp] = value.slice(0);
+            } else if (angular.isObject(value)) {
+              $element[0][elProp] = Object.assign({}, value);
+            } else {
+              $element[0][elProp] = value;
+            }
+          }, true);
         }
 
-        // Convert Angular camelCase property to dash-case
-        function denormalize(str) {
-          return str.replace(/[A-Z]/g, function(c) {
-            return '-' + c.toLowerCase();
-          });
-        }
-
-        // Setup event handler and return a deregister function
-        // to be used during $destroy
-        function createHandler($scope, element, event, handler) {
-          var listener = function(e) {
-            $scope.$evalAsync(handler.bind($scope.$ctrl, e));
-          }
-          element.addEventListener(event, listener);
-          return function() {
-            element.removeEventListener(event, listener);
-          }
-        }
-
-        return function($scope, $element, $attrs) {
-          // Store event handler remover functions in
-          // here and use on $destroy
-          var cleanup = [];
-
-          // Setup an event handler to act as an output
-          // Since elements communicate to the outside world
-          // using events, we'll simulate angular's '&'
-          // output callbacks using regular event handlers
-          function makeOutput(handlerName, eventName) {
-            var handler = getHandler(handlerName);
-            var event = getEvent(eventName);
-            var removeHandler = createHandler(
-              $scope,
-              $element[0],
-              event,
-              $scope.$ctrl[handler]
-            );
-            cleanup.push(removeHandler);
-          }
-
-          // Setup a watcher on the controller property
-          // and create a copy when setting data on the
-          // element so it can't mutate the parent's data
-          // TODO: Don't do a deep watch. Differentiate
-          // based on object type and use watchCollection
-          function makeInput(ctrlProp, elProp) {
-            $scope.$watch(ctrlProp, function(value) {
-              if (angular.isArray(value)) {
-                $element[0][elProp] = value.slice(0);
-              } else if (angular.isObject(value)) {
-                $element[0][elProp] = Object.assign({}, value);
-              } else {
-                $element[0][elProp] = value;
-              }
-            }, true);
-          }
-
-          // Iterate over element attributes and look for one way
-          // inputs or outputs
-          for (var prop in $attrs) {
-            if (angular.isString($attrs[prop]) && $attrs[prop] !== '') {
-              // Look for an Output like on-foo="$ctrl.doBar()"
-              // Note that angular's $attr object will camelCase things beginning
-              // with "on-". So on-foo becomes onFoo
-              if (prop.substr(0, 2) === 'on' && $attrs[prop].indexOf('.') !== -1) {
-                makeOutput($attrs[prop], prop);
-              } else {
-                makeInput($attrs[prop], prop);
-              }
+        // Iterate over element attributes and look for one way
+        // inputs or outputs
+        for (var prop in $attrs) {
+          if (angular.isString($attrs[prop]) && $attrs[prop] !== '') {
+            // Look for an Output like on-foo="$ctrl.doBar()"
+            // Note that angular's $attr object will camelCase things beginning
+            // with "on-". So on-foo becomes onFoo
+            if (prop.substr(0, 2) === 'on' && $attrs[prop].indexOf('.') !== -1) {
+              makeOutput($attrs[prop], prop);
+            } else {
+              makeInput($attrs[prop], prop);
             }
           }
+        }
 
-          // Listen for $destroy event and remove all event
-          // listeners. $watchers should be automatically removed
-          // so don't need to do any work there
-          $scope.$on('$destroy', function() {
-            cleanup.forEach(function(removeFn) {
-              removeFn();
-            });
+        // Listen for $destroy event and remove all event
+        // listeners. $watchers should be automatically removed
+        // so don't need to do any work there
+        $scope.$on('$destroy', function() {
+          cleanup.forEach(function(removeFn) {
+            removeFn();
           });
+        });
 
-        };
-      }
+      };
     }
   }
-
-}));
+}

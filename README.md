@@ -12,11 +12,10 @@ Angular 1.x directive to hold all yr Custom Element bindings together 😁
 
 ## Usage
 
-- Include the `ce-bind.module.js` script in your page.
+- Include the `dist/ce-bind.(min.)js` script in your page.
 - Add `robdodson.ce-bind` as a module dependency to your app.
-- **For interpolated/two-way bindings**: Add the `ce-interpolated.directive.js`
-script to your app and add the `ce-interpolated` directive to any Custom
-Element or Polymer Element to keep your interpolated bindings in sync.
+- **For interpolated/two-way bindings**: Add the `ce-interpolated` directive to
+any Custom Element or Polymer Element to keep your interpolated bindings in sync.
 
 ```html
 <div ng-controller="MainCtrl as main">
@@ -25,8 +24,7 @@ Element or Polymer Element to keep your interpolated bindings in sync.
 </div>
 ```
 
-- **For one-way bindings**: Add the `ce-one-way.directive.js` script to your app
-and add the `ce-one-way` directive to any Custom
+- **For one-way bindings**: Add the `ce-one-way` directive to any Custom
 Element or Polymer Element, to keep its one-way bindings in sync.
 
 ```js

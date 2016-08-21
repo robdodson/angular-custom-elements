@@ -15,16 +15,4 @@
  * limitations under the License.
  */
 
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define(['angular'], factory);
-  } else if (typeof exports === 'object') {
-    module.exports = factory(require('angular'));
-  } else {
-    root.returnExports = factory(root.angular);
-  }
-} (this, function(angular) {
-
-  angular.module('robdodson.ce-bind', []);
-
-}));
+angular.module('robdodson.ce-bind', []);
