@@ -13,7 +13,7 @@ Angular 1.x directive to hold all yr Custom Element bindings together 😁
 - Include the `ce-bindings.js` script in your page.
 - Add `robdodson.ce-bindings` as a module dependency to your app.
 - **For interpolated bindings**: Add the `ce-bind-two` directive to any Custom
-Element or Polymer Element to keep its interpolated bindings in sync.
+Element or Polymer Element to keep your interpolated bindings in sync.
 
 ```html
 <div ng-controller="MainCtrl as main">
@@ -38,10 +38,10 @@ app.component('fooComponent', {
 
 ## How does it work?
 
-### interpolated bindings
+### Interpolated bindings
 
-Polymer's interpolated binding system is event based. Anytime a bindable property
-changes it fires an event named: `[property]-changed`. For example, a interpolated
+Polymer's two-way binding system is event based. Anytime a bindable property
+changes it fires an event named: `[property]-changed`. For example, a two-way
 bindable property named `foo` would fire a `foo-changed` event.
 
 This means we can listen for the `*-changed` events coming off of an element,
