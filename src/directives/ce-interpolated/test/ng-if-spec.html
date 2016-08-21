@@ -14,34 +14,28 @@ limitations under the License.
 <!doctype html>
 
 <head>
-  <script src="../../bower_components/angular/angular.js"></script>
-  <script src="../../ce-bind.module.js"></script>
-  <script src="../../ce-interpolated.directive.js"></script>
-  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-  <link href="../../bower_components/polymer/polymer.html" rel="import">
-  <link href="elements/my-list.html" rel="import">
+  <script src="/bower_components/angular/angular.js"></script>
+  <script src="/src/modules/ce-bind.module.js"></script>
+  <script src="/src/directives/ce-interpolated/ce-interpolated.directive.js"></script>
+  <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link href="/bower_components/polymer/polymer.html" rel="import">
+  <link href="./elements/my-input.html" rel="import">
   <meta charset="utf-8">
 </head>
 
 <body ng-app="test">
-
   <div ng-controller="MainCtrl as main">
-    <p>Angular array is: </p>
-    <div class="ng-array-item" ng-repeat="n in main.friends">
-      {{n}}
-    </div>
-    <button id="ng-button" ng-click="main.addFriend()">Update array in Angular</button>
-    <my-list friends="{{main.friends}}" ce-interpolated></my-list>
+    Toggle message:
+    <input id="ng-checkbox" type="checkbox" ng-model="checked" ng-init="checked=false" />
+    <div id="ng-string">{{main.greeting}}</div>
+    <my-input message="{{main.greeting}}" ng-if="checked" ce-interpolated></my-input>
   </div>
 
   <script>
     var myApp = angular.module('test', ['robdodson.ce-bind']);
 
     myApp.controller('MainCtrl', function() {
-      this.friends = ['Eric', 'Addy', 'Alice'];
-      this.addFriend = function() {
-        this.friends.push('Paul');
-      };
+      this.greeting = 'Hello, from Angular!';
     });
   </script>
 
