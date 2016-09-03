@@ -39,11 +39,45 @@ function ceOneWay() {
     scope: false,
     compile: function($element, $attrs) {
 
+      // parse an expression and returns its metadata
+      function parse(expression) {
+
+        // keep a local cache so we don't parse the same expression again and again...
+        var cache = {};
+        var matchedPattern = null;
+
+        return function() {
+          if (!cache[expression]) {
+
+            // cache[expression][0] = expression
+            // cache[expression][1] = controller alias (with dot) i.e. "$ctrl." or "undefined" for non-aliased controllers
+            // cache[expression][2] = controller alias (without dot) i.e. "$ctrl" or "undefined" for non-aliased controllers
+            // cache[expression][3] = event handler
+            // cache[expression][4] = event handler params (i.e. "$event, a, b, c")
+
+            matchedPattern = expression.match(/((.*)\.)?(\w*)\((.*)\)/);
+            cache[expression] = {
+              handler: matchedPattern[3],
+              controllerAlias: matchedPattern[2]
+            }
+          }
+          return cache[expression];
+        }
+      }
+
+      // Find the controller alias associated with the $scope
+      function getCtrlAlias(expression) {
+        var parsedExpression = parse(expression)();
+        if (parsedExpression) {
+          return parsedExpression.controllerAlias;
+        }
+      }
+
       // Find the event handler associated with the $ctrl
       function getHandler(expression) {
-        var handler = expression.match(/(\w*)\((.*)\)/);
-        if (handler) {
-          return handler[1];
+        var parsedExpression = parse(expression)();
+        if (parsedExpression) {
+          return parsedExpression.handler;
         }
       }
 
@@ -63,9 +97,9 @@ function ceOneWay() {
 
       // Setup event handler and return a deregister function
       // to be used during $destroy
-      function createHandler($scope, element, event, handler) {
+      function createHandler($scope, element, event, handler, ctrlScope) {
         var listener = function(e) {
-          $scope.$evalAsync(handler.bind($scope.$ctrl, e));
+          $scope.$evalAsync(handler.bind(ctrlScope, e));
         }
         element.addEventListener(event, listener);
         return function() {
@@ -84,12 +118,15 @@ function ceOneWay() {
         // output callbacks using regular event handlers
         function makeOutput(handlerName, eventName) {
           var handler = getHandler(handlerName);
+          var ctrlAlias = getCtrlAlias(handlerName);
+          var ctrlScope = ($scope[ctrlAlias] || $scope);
           var event = getEvent(eventName);
           var removeHandler = createHandler(
             $scope,
             $element[0],
             event,
-            $scope.$ctrl[handler]
+            ctrlScope[handler],
+            ctrlScope
           );
           cleanup.push(removeHandler);
         }
@@ -115,10 +152,12 @@ function ceOneWay() {
         // inputs or outputs
         for (var prop in $attrs) {
           if (angular.isString($attrs[prop]) && $attrs[prop] !== '') {
-            // Look for an Output like on-foo="$ctrl.doBar()"
+            // Look for an Output like
+            // ==> on-foo="doBar()"
+            // ==> on-foo="$ctrl.doBar()"
             // Note that angular's $attr object will camelCase things beginning
             // with "on-". So on-foo becomes onFoo
-            if (prop.substr(0, 2) === 'on' && $attrs[prop].indexOf('.') !== -1) {
+            if (prop.substr(0, 2) === 'on' && $attrs[prop].indexOf('(') !== -1) {
               makeOutput($attrs[prop], prop);
             } else {
               makeInput($attrs[prop], prop);
