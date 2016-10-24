@@ -40,34 +40,32 @@ function ceOneWay() {
     compile: function($element, $attrs) {
 
       // parse an expression and returns its metadata
-      function parse(expression) {
-
-        // keep a local cache so we don't parse the same expression again and again...
+      var parse = (function () {
         var cache = {};
-        var matchedPattern = null;
 
-        return function() {
-          if (!cache[expression]) {
-
-            // cache[expression][0] = expression
-            // cache[expression][1] = controller alias (with dot) i.e. "$ctrl." or "undefined" for non-aliased controllers
-            // cache[expression][2] = controller alias (without dot) i.e. "$ctrl" or "undefined" for non-aliased controllers
-            // cache[expression][3] = event handler
-            // cache[expression][4] = event handler params (i.e. "$event, a, b, c")
-
-            matchedPattern = expression.match(/((.*)\.)?(\w*)\((.*)\)/);
-            cache[expression] = {
-              handler: matchedPattern[3],
-              controllerAlias: matchedPattern[2]
-            }
+        return function parse(expression) {
+          if (cache[expression]) {
+            return cache[expression];
           }
-          return cache[expression];
-        }
-      }
+
+          var matchedPattern = expression.match(/((.*)\.)?(\w*)\((.*)\)/);
+
+          // matchedPattern[0] = expression
+          // matchedPattern[1] = controller alias (with dot) i.e. "$ctrl." or "undefined" for non-aliased controllers
+          // matchedPattern[2] = controller alias (without dot) i.e. "$ctrl" or "undefined" for non-aliased controllers
+          // matchedPattern[3] = event handler
+          // matchedPattern[4] = event handler params (i.e. "$event, a, b, c")
+
+          return cache[expression] = {
+            handler: matchedPattern[3],
+            controllerAlias: matchedPattern[2]
+          };
+        };
+      })();
 
       // Find the controller alias associated with the $scope
       function getCtrlAlias(expression) {
-        var parsedExpression = parse(expression)();
+        var parsedExpression = parse(expression);
         if (parsedExpression) {
           return parsedExpression.controllerAlias;
         }
@@ -75,7 +73,7 @@ function ceOneWay() {
 
       // Find the event handler associated with the $ctrl
       function getHandler(expression) {
-        var parsedExpression = parse(expression)();
+        var parsedExpression = parse(expression);
         if (parsedExpression) {
           return parsedExpression.handler;
         }
